@@ -117,4 +117,4 @@ The project notes identify the following contributors:
 
 ## Documentation Notes
 
-This README describes the documented design and development progress, rather than claiming that unfinished features are operational. Source code, full installation steps, training results, and a final license were not included in the supplied document.
+This README was created with the assistance of ChatGPT. It describes the documented design and development progress, rather than claiming that unfinished features are operational. Source code, full installation steps, training results, and a final license were not included in the supplied document.
