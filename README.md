@@ -103,11 +103,11 @@ To include the images in this README, add them to the repository (for example, u
 
 The project notes identify the following contributors:
 
-- Aaron 
-- Jack 
-- Owen 
-- John 
-- Uriah 
+- Aaron Bestler 
+- Jack Curless
+- Owen McGrath
+- Jon Hubal
+- Uriah Blair
 
 ## Documentation Notes
 
