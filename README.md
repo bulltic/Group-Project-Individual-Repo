@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-The Dawgs are developing a Raspberry Pi 5–based radar sensing system using an **HLK-LD2450 24 GHz mmWave sensor** and an AI model. The project's goals are to distinguish between human and pet detections, identify potential falls, and provide appropriate alerts.
+The Dawgs are developing a Raspberry Pi 5–based radar sensing system using an **HLK-LD2450 24 GHz mmWave sensor** and an AI model. The project's goals are to identify if a human is running, walking, falling, or crawling and then have AI provide appropriate alerts.
 
 The team is experimenting with a **Closed-Form Continuous-Time (CfC) neural network** rather than a LiquidAI LFM, with the aim of using Raspberry Pi resources efficiently. These detection and alert capabilities are **project goals, not yet demonstrated completed features** in the project notes.
 
@@ -14,8 +14,8 @@ The team is experimenting with a **Closed-Form Continuous-Time (CfC) neural netw
 - Convert raw hexadecimal sensor output into readable information.
 - Present detected-object location data in a clear format.
 - Collect training data for an AI model.
-- Develop a model to distinguish people from pets.
-- Explore fall detection and corresponding alerts.
+- Develop a model to distinguish human movements.
+- Explore AI corresponding alerts.
 
 ## Hardware
 
@@ -38,8 +38,6 @@ The following wiring is recorded in the project notes:
 | TX | Sensor transmit | GPIO 15 (RXD) | 10 |
 | RX | Sensor receive | GPIO 14 (TXD) | 8 |
 
-**Important:** Power down the Raspberry Pi before making wiring changes. Verify the sensor's electrical requirements and UART signal levels against the hardware documentation before connecting it.
-
 ## Software and Tools
 
 The team has used or explored:
@@ -51,8 +49,6 @@ The team has used or explored:
 - **Ollama**, which was installed and subsequently uninstalled.
 - **`i2c-tools`**, installed during early setup.
 
-The project notes do not provide a complete dependency list, the source scripts, or confirmed commands for running the final system.
-
 ## Initial Setup and Testing
 
 The team documented the following commands:
@@ -62,40 +58,38 @@ sudo apt install i2c-tools
 i2cdetect -y 1
 ```
 
-These are **I²C diagnostic commands**, not commands for reading the HLK-LD2450's UART data. The sensor wiring documented above uses TX/RX serial communication.
-
-### Sensor data workflow
-
-1. Connect the HLK-LD2450 to the Raspberry Pi using the documented pin mapping.
-2. Verify communication between the radar and the Pi.
-3. Use a Python script to turn the raw hexadecimal output into readable sensor data.
-4. Refine the display of detected-object locations.
-5. Run a data-collection script to gather examples for model training.
-6. Use the collected data in future AI training and validation.
-
-**Note:** These are documented development activities, not a verified end-to-end installation or usage procedure. Add the actual script filenames and invocation commands once they are available.
-
 ## Development Progress
+Pre First Meeting: Aaron Bestler (myself), Jack Curless, Owen McGrath, Jon Hubal, Uriah Blair
 
-### First Group Meeting: Aaron Bestler (myself), Jack Curless, Owen McGrath (due to other commitments Uriah was not able to attend and because of us texting the wrong phone number John was not present) 
+- Discussed ideas for the project 
+- Jack ordered the HLK-LD2450 
+- Uriah researched the cable connections for the sensor and PI
 
-- Tested connectivity between the HLK-LD2450 and Raspberry Pi.
-- Created an initial sensor communication verification script with AI assistance.
-- Developed a script to convert hexadecimal readings into human-readable output.
-- Iterated through four versions to improve clarity and conciseness.
+First Group Meeting (10/24): Aaron Bestler (myself), Jack Curless, Owen McGrath (due to other commitments Uriah was not able to attend and because of us texting the wrong phone number Jon was not present) 
 
-### Second Group Meeting: Aaron Bestler (myself), Jack Curless, Owen McGrath, John (Uriah had a scheduling conflict but he delivered the sensor stand displayed below to the group) 
+- Tested Connectivity to the HLK-LD2450. 
+- Had Gemini create a script to verify the connectivity from the HLK with the PI
+- After successfully verifying the connectivity to the PI, we had Gemini create a script to make the data human readable as otherwise its just outputted in hexadecimal values 
+- Initial script was good for a start
+- Went through 4 different variations of the script until arriving at one that presented the information in most concise and easy readable format
+- Concluded first meeting 
 
-- Installed and later removed Ollama.
-- Installed Homebrew and llama while exploring local AI tools.
-- Selected a CfC network approach instead of LiquidAI LFM models, based on expected resource efficiency.
-- Installed PyTorch and tested an initial AI script.
-- Improved how object locations were presented for demonstrations.
-- Created a sensor-data collection script for future AI training.
-- Found that the first collection attempt produced no data because of a wiring issue.
-- Corrected the sensor connections and ran two further collection iterations.
+Second Group Meeting (11/3): Aaron Bestler (myself), Jack Curless, Owen McGrath, Jon Hubal (Uriah had a scheduling conflict but he delivered the sensor stand displayed below to the group) 
 
-**Current documented milestone:** Sensor connectivity and readable output have been tested; the team has begun collecting data for AI development. The notes do not yet report model accuracy, successful pet/human classification, or fall-detection results.
+- Connected the sensor to the Raspberry Pi 5
+- Researched how to install LiquidAI on the Pi
+- Found Ollama during research and installed Ollama
+- Uninstalled Ollama after further research and concluding it wasn't what we needed 
+- During further research landed on llama so we installed Homebrew to install llama
+- Installed llama
+- Using Closed-Form Continuous Time (CfC) network instead of LiquidAI LFM models because it is a more efficient use of resources
+- Installed torch
+- Tested first AI script
+- Tweaked some parts of the AI script to make the location of the object more understandable and presentable for demo (around this point John and Owen had to leave)
+- Used AI to create script that allows the sensor to collect data that the AI on the PI will be trained on
+- Ran one iteration of the training data script. Ran into a problem and actually collected 0 data. Turned out the sensor connections to the PI had been messed up
+- After fixing the cabling problem with the sensor, ran two iterations of the training data script
+- Concluded this meeting
 
 ## Sensor Stand
 
